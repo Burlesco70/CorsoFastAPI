@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "CorsoFastAPI"
+version = "0.1.0"
+description = "Imparare FastAPI"
+authors = [
+    "Burlesco70"
+]
+license = "MIT"
+readme = "README.md"
+homepage = "https://github.com/Burlesco70/CorsoFastAPI"
+repository = "https://github.com/Burlesco70/CorsoFastAPI"
+documentation = "https://github.com/Burlesco70/CorsoFastAPI"
+
+classifiers = [
+    "Topic :: Learn FastAPI"
+]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+fastapi = "^0.64"
+uvicorn = "^0.13.4"
