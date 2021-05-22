@@ -4,7 +4,7 @@
 
     <img src="/static/img/cloud.png" style="float: left; max-width: 48px; margin-right: 20px;" alt="">
 
-    <h1><span class="font-semi-bold">Servizio "Che tempo fa?"</span> <span class="smaller">Un servizio metereologico RESTful</span>
+    <h1><span class="font-semi-bold">Servizio "Che tempo fa?"<br></span> <span class="smaller">Un servizio metereologico RESTful</span>
     </h1>
 
     <div style="clear:both;"></div>
@@ -17,7 +17,7 @@
     <ul>
         <li>
             <strong>Tempo in una città</strong><br>
-            <a href="/api/chetempofa/biella?nazione=IT&udm=metric"
+            <a href="/api/chetempofa/biella?nazione=it&udm=metric&lang=it"
                target="_blank"
             ><strong>GET /api/chetempofa/{citta}?regione={regione}&nazione={nazione}</strong></a><br>
             <br>
@@ -28,7 +28,7 @@
                     </li>
                     <li>Opzionale: <code>regione={regione}</code> - la regione (vale solo per gli Stati Uniti (US), solo 2 lettere
                     </li>
-                    <li>Opzionale: <code>nazione={nazione}</code> - nazione, IT (Italia) come default, solo 2 lettere
+                    <li>Opzionale: <code>nazione={nazione}</code> - nazione, it (Italia) come default, solo 2 lettere
                     </li>
                     <li>Opzionale: <code>udm={udm}</code> - unità di misura: {metric, imperial, standard}; default "metric"
                     </li>
@@ -36,7 +36,7 @@
 
                 <strong>Risposta JSON</strong>
                 <ul>
-                    <li>Clicca <a href="/api/chetempofa/biella?nazione=IT&udm=metric"
+                    <li>Clicca <a href="/api/chetempofa/biella?nazione=it&udm=metric&lang=it"
                                  target="_blank"
                     >il link</a> per avere il tempo di Biella.
                     </li>

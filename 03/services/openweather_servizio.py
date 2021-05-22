@@ -4,13 +4,13 @@ import httpx
 api_key: Optional[str] = None
 
 
-async def get_report_async(city: str, state: Optional[str], country: str, units: str) -> dict:
-    if state:
-        q = f'{city},{state},{country}'
+async def get_report_async(citta: str, regione: Optional[str], nazione: str, udm: str) -> dict:
+    if regione:
+        q = f'{citta},{regione},{nazione}'
     else:
-        q = f'{city},{country}'
+        q = f'{citta},{nazione}'
 
-    url = f'https://api.openweathermap.org/data/2.5/weather?q={q}&appid={api_key}&units={units}'
+    url = f'https://api.openweathermap.org/data/2.5/weather?q={q}&lang=it&appid={api_key}&units={udm}'
     #print(url)
 
     async with httpx.AsyncClient() as client:
@@ -18,5 +18,5 @@ async def get_report_async(city: str, state: Optional[str], country: str, units:
         resp.raise_for_status()
 
     data = resp.json()
-    forecast = data['main']
-    return forecast
+    previsione = data['main']
+    return previsione
