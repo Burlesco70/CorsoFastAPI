@@ -1,8 +1,8 @@
 [tool.poetry]
 name = "data_classes"
 version = "0.1.0"
-description = "Esplorando data classes"
-authors = ["Burlesco70 <mario.nardi.70@gmail.com>"]
+description = "Esplorando le data classes, con pydantic"
+authors = ["Burlesco70"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
