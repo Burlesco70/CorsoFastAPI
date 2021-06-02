@@ -1,0 +1,4 @@
+{
+  "api_key": "YOUR_API_KEY_FROM openweathermap.org",
+  "azione": "Copia questo file come settings.json e metti la api key"
+}

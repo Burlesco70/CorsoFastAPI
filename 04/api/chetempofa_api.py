@@ -20,5 +20,6 @@ async def chetempofa(loc: Localita = Depends(), udm: Optional[str] = 'metric'):
         return fastapi.Response(content=ve.error_msg, status_code=ve.status_code)
     # Errori generici, di più basso livello
     except Exception as x:
-        # manca parte di logging...
+        # manca parte di logging... temporaneamente uso print
+        print(f"Errore dal server: {x}")
         return fastapi.Response(content=str(x), status_code=500)

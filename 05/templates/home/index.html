@@ -1,0 +1,62 @@
+{% extends "shared/layout.html" %}
+
+{% block content %}
+
+    <img src="/static/img/cloud.png" style="float: left; max-width: 48px; margin-right: 20px;" alt="">
+
+    <h1><span class="font-semi-bold">Servizio "Che tempo fa?"<br></span> <span class="smaller">Un servizio metereologico RESTful</span>
+    </h1>
+
+    <div style="clear:both;"></div>
+    <br>
+    <br>
+    <p class="lead">
+        Grazie a <a href="https://training.talkpython.fm/">Talk Python</a>.<br>
+        <br>
+        <strong>Endpoints</strong>
+    <ul>
+        <li>
+            <strong>Tempo in una città</strong><br>
+            <a href="/api/chetempofa/biella?nazione=it&udm=metric&lang=it"
+               target="_blank"
+            ><strong>GET /api/chetempofa/{citta}?regione={regione}&nazione={nazione}</strong></a><br>
+            <br>
+            <div style="font-size: 12px;">
+                <strong>Parametri</strong>
+                <ul>
+                    <li><strong>Obbligatorio</strong>: <code>citta={citta}</code> - la città da interrogare
+                    </li>
+                    <li>Opzionale: <code>regione={regione}</code> - la regione (vale solo per gli Stati Uniti (US), solo 2 lettere
+                    </li>
+                    <li>Opzionale: <code>nazione={nazione}</code> - nazione, it (Italia) come default, solo 2 lettere
+                    </li>
+                    <li>Opzionale: <code>udm={udm}</code> - unità di misura: {metric, imperial, standard}; default "metric"
+                    </li>
+                </ul>
+
+                <strong>Risposta JSON</strong>
+                <ul>
+                    <li>Clicca <a href="/api/chetempofa/biella?nazione=it&udm=metric&lang=it"
+                                 target="_blank"
+                    >il link</a> per avere il tempo di Biella.
+                    </li>
+                </ul>
+            </div>
+        </li>
+    </ul>
+    </p>
+
+    {% if eventi %}
+    <div>
+        <h2>Segnalazioni recenti</h2>
+        <ul>
+            {% for e in eventi %}
+                    <li> {{ e.localita.citta }}, {{ e.localita.nazione }}: {{ e.descrizione }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}    
+
+    </div>
+
+{% endblock %}
