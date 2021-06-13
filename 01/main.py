@@ -10,7 +10,8 @@ api = fastapi.FastAPI()
 # Flask-style
 # E' sempre consigliabile avere una home di dominio API
 @api.get('/')
-# Per ora senza Jinja
+# fastapi.responses.HTMLResponse ritorna HTML, per ora senza Jinja
+# Di default, ritorna json
 def index():
     body = "<html>" \
            "<body style='padding: 10px;'>" \
@@ -22,6 +23,16 @@ def index():
            "</html>"
 
     return fastapi.responses.HTMLResponse(content=body)
+
+
+@api.get('/default')
+def default():
+    '''
+    Funzione scritta solo per mostrare come il default sia json
+    '''
+    return {
+        "message": "Json?"
+    }
 
 # Flask-style
 # Altro modo di passare i dati

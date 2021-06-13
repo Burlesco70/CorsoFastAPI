@@ -40,7 +40,10 @@ def configure_routing():
     api.include_router(home.router)
     api.include_router(chetempofa_api.router)
 
-
+'''
+Formato già adatto all'esecuzione in produzione, che sarà uvicorn modulo:var_name
+uvicorn main:api
+'''
 if __name__ == '__main__':
     configure()
     uvicorn.run(api, port=8000, host='127.0.0.1')
