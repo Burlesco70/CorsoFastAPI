@@ -14,9 +14,14 @@ from models.localita import Localita
 api = fastapi.FastAPI()
 
 def configure():
+    configure_templates_and_static()
     configure_routing()
     configure_api_keys()
 
+def configure_templates_and_static():
+    # No templates con Jinja, servono per altri tipi di templates
+    # Mount della cartella statica
+    api.mount('/static', StaticFiles(directory='static'), name='static')
 
 def configure_api_keys():
     '''
@@ -38,7 +43,6 @@ def configure_routing():
     - home
     - api
     '''
-    api.mount('/static', StaticFiles(directory='static'), name='static')
     api.include_router(home.router)
     api.include_router(chetempofa_api.router)
 
