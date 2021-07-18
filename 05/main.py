@@ -39,7 +39,7 @@ def configure_api_keys():
 
 def configure_routing():
     '''
-    Configurazione della directory static e dei vari routers logici, in questa app:
+    Configurazione dei vari routers logici, in questa app:
     - home
     - api
     '''

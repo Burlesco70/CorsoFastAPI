@@ -7,7 +7,9 @@ https://github.com/talkpython/modern-apis-with-fastapi
 
 # Altre risorse
 
-https://www.jeffastor.com/blog/up-and-running-with-fastapi-and-docker
+https://realpython.com/fastapi-python-web-apis/  
+
+https://www.jeffastor.com/blog/up-and-running-with-fastapi-and-docker  
 
 # E dopo?
 
