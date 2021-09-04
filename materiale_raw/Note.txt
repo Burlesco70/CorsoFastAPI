@@ -1,0 +1,22 @@
+FastAPI
+https://www.youtube.com/watch?v=-ykeT6kk4bk
+https://www.youtube.com/watch?v=7t2alSnE2-I
+https://www.youtube.com/watch?v=pwcTvGbW-yY
+
+https://itnext.io/5-reasons-you-should-use-fastapi-to-get-stuff-done-quickly-6230ded3a8c6
+https://github.com/ChristopherGS/ultimate-fastapi-tutorial
+
+Esempio
+https://github.com/beanboi7/yomomma-apiv2
+
+path
+operation
+path operation function
+
+Approfondimento su Pydantic
+https://www.youtube.com/watch?v=Vj-iU-8_xLs
+https://github.com/ArjanCodes/2021-pydantic
+
+Async
+https://www.youtube.com/watch?v=F19R_M4Nay4
+https://github.com/mikeckennedy/async-await-jetbrains-webcast
