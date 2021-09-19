@@ -20,3 +20,14 @@ https://github.com/ArjanCodes/2021-pydantic
 Async
 https://www.youtube.com/watch?v=F19R_M4Nay4
 https://github.com/mikeckennedy/async-await-jetbrains-webcast
+
+
+https://mypy.readthedocs.io/en/latest/cheat_sheet_py3.html
+
+Validazione dati e gestione valori usando Python type annotations
+pydantic applica type hints in fase di esecuzione e fornisce errori di facile utilizzo quando i dati non sono validi.
+
+Definisci come dovrebbero essere i dati in puro Python; convalidalo con pydantic.
+Define how data should be in pure, canonical python; validate it with pydantic.
+
+

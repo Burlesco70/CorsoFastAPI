@@ -1,7 +1,6 @@
 import datetime
+from dataclasses import dataclass
 from typing import List, Optional
-
-from pydantic import BaseModel
 
 ordine_json = {
     'elemento_id': '123',
@@ -10,12 +9,19 @@ ordine_json = {
     'prezzo': 17.22
 }
 
-
-class Ordine(BaseModel):
+# https://docs.python.org/3/library/dataclasses.html#module-dataclasses
+# This module provides a decorator and functions for automatically adding generated special methods 
+# such as __init__() and __repr__() to user-defined classes.
+@dataclass
+class Ordine:
     elemento_id: int
     data_creazione: Optional[datetime.datetime]
-    pagine_visitate: List[int] = []
+    pagine_visitate: List[int]
     prezzo: float
+
+    def __post_init__(self):
+        # Inserire tutti i controlli qui
+        pass
 
 
 def main() -> None:

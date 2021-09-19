@@ -1,17 +1,22 @@
+# Gestisce ordini da un menu, calcola costo totale e costo massimo
 from collections import namedtuple
 
-Elemento = namedtuple("Elemento", "voce, prezzo")
+# https://docs.python.org/3/library/collections.html#collections.namedtuple
+Ordine = namedtuple("Ordine", "voce, prezzo")
 
 costo_massimo = None
 
 
-def calcola_costo(elementi):
+def calcola_costo(ordini):
     global costo_massimo
     total = 0
 
-    for e in elementi:
-        total += e.prezzo
+    for o in ordini:
+        total += o.prezzo
+        # Editor non mi aiuta nel capire che "prezzi" non esiste
+        # total += o.prezzi
 
+    # Di che tipo è costo_massimo?
     if not costo_massimo or total > costo_massimo:
         costo_massimo = total
 
@@ -21,8 +26,9 @@ def calcola_costo(elementi):
 def main():
     print("Inseriamo i pasti consumati nel giorno")
 
-    cena = [Elemento('Pizza', 20), Elemento('Birra', 9), Elemento('Birra', 9)]
-    colazione = [Elemento('Pancakes', 11), Elemento('Bacon', 4), Elemento('Caffè', 3), Elemento('Caffè', 3), Elemento('Brioche', 2)]
+    cena = [Ordine('Pizza', 20), Ordine('Birra', 9), Ordine('Birra', 9)]
+    colazione = [Ordine('Pancakes', 11), Ordine('Bacon', 4),
+                 Ordine('Caffè', 3), Ordine('Caffè', 3), Ordine('Brioche', 2)]
 
     totale_cena = calcola_costo(cena)
     print(f"Costo cena EUR {totale_cena:,.02f}")
