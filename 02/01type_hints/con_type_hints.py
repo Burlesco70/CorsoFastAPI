@@ -21,7 +21,7 @@ def calcola_costo(ordini: Iterable[Ordine]) -> int:
     return total
 
 
-def main():
+def main() -> None:
     print("Inseriamo i pasti consumati nel giorno")
 
     cena = [Ordine('Pizza', 20), Ordine('Birra', 9), Ordine('Birra', 9)]
