@@ -1,7 +1,6 @@
 from typing import Optional, List
-from fastapi import FastAPI
+
 from sqlmodel import Field, SQLModel, Session, Relationship, create_engine, select
-import uvicorn
 
 # Tabella di associazione n:n
 class TagProductLink(SQLModel, table=True):
@@ -38,41 +37,52 @@ engine = create_engine(sqlite_url, echo=True)
 def create_db_and_tables():
     SQLModel.metadata.create_all(engine)
 
-app = FastAPI()
+def create_products():
+    with Session(engine) as session:
+        tag_offerta = Tag(name="Offerta")
+        tag_maionese = Tag(name="Con Maionese")
+        tipo_panino = ProductType(name="panino")
+        tipo_bibita = ProductType(name="bibita")     
+        session.add(tag_offerta)
+        session.add(tag_maionese)
+        session.add(tipo_panino)
+        session.add(tipo_bibita)
+        session.commit()
 
-@app.on_event("startup")
-def on_startup():
+        hamburger = Product(
+            name="hamburger", 
+            product_type=tipo_panino.id,
+            tags=[tag_offerta, tag_maionese]
+        )
+        coke = Product(
+            name="Coca Cola",
+            product_type=tipo_bibita.id,
+            tags=[tag_offerta]
+        )
+
+        session.add(hamburger)
+        session.add(coke)
+        session.commit()
+
+        session.refresh(hamburger)
+        session.refresh(coke)
+
+        print("Created :", hamburger)
+        print("Created :", coke)
+
+def select_products():
+    with Session(engine) as session:
+        statement = select(Product, ProductType).where(Product.product_type == ProductType.id)
+        results = session.exec(statement)
+        for product, product_type in results:
+            print("product:", product, "product_type:", product_type, "tags:", product.tags )        
+
+def main():
     create_db_and_tables()
+    #create_products()
+    select_products()
 
-@app.post("/tags/")
-def create_product(tag: Tag):
-    with Session(engine) as session:
-        session.add(tag)
-        session.commit()
-        session.refresh(tag)
-        return tag
 
-@app.post("/product_types/")
-def create_product(product_type: ProductType):
-    with Session(engine) as session:
-        session.add(product_type)
-        session.commit()
-        session.refresh(product_type)
-        return product_type
 
-@app.post("/products/")
-def create_product(product: Product):
-    with Session(engine) as session:
-        session.add(product)
-        session.commit()
-        session.refresh(product)
-        return product
-
-@app.get("/products/")
-def read_products():
-    with Session(engine) as session:
-        products = session.exec(select(Product)).all()
-        return products  
-
-if __name__ == '__main__':
-    uvicorn.run(app, port=8000, host='127.0.0.1')
+if __name__ == "__main__":
+    main()
