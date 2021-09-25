@@ -1,8 +1,9 @@
-# Problema: Session non gestita in modo ottimale
-# Introduzione di Dependency per ottenere la Session
-# https://sqlmodel.tiangolo.com/tutorial/fastapi/simple-hero-api/#one-session-per-request
-# Introduciamo i get singoli
-# https://sqlmodel.tiangolo.com/tutorial/fastapi/read-one/
+# Problema: il client può mandare gli id (che al client API sembra opzionale!)
+# Modello per la scrittura: senza id
+# Modello per la lettura: id non opzionale
+# 03 MODELLI MULTIPLI (con ereditarietà)
+# Proviamo con ... ProductType
+# https://sqlmodel.tiangolo.com/tutorial/fastapi/multiple-models/
 from typing import Optional, List
 from fastapi import FastAPI
 from sqlmodel import Field, SQLModel, Session, Relationship,\
@@ -54,7 +55,6 @@ class Product(SQLModel, table=True):
 
 sqlite_file_name = "database.db"
 sqlite_url = f"sqlite:///{sqlite_file_name}"
-
 engine = create_engine(sqlite_url, echo=True)
 
 
