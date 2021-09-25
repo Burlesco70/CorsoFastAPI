@@ -15,7 +15,7 @@ class TagProductLink(SQLModel, table=True):
     )
     product_id: Optional[int] = Field(
         default=None, foreign_key="product.id", primary_key=True
-    )    
+    )
 
 
 class Tag(SQLModel, table=True):
@@ -44,22 +44,27 @@ sqlite_url = f"sqlite:///{sqlite_file_name}"
 
 engine = create_engine(sqlite_url, echo=True)
 
+
 def create_db_and_tables():
     SQLModel.metadata.create_all(engine)
 
+
 app = FastAPI()
+
 
 @app.on_event("startup")
 def on_startup():
     create_db_and_tables()
 
+
 @app.post("/tags/", response_model=Tag)
-def create_product(tag: Tag):
+def create_tag(tag: Tag):
     with Session(engine) as session:
         session.add(tag)
         session.commit()
         session.refresh(tag)
         return tag
+
 
 @app.post("/product_types/", response_model=ProductType)
 def create_product_type(product_type: ProductType):
@@ -69,6 +74,7 @@ def create_product_type(product_type: ProductType):
         session.refresh(product_type)
         return product_type
 
+
 @app.post("/products/", response_model=Product)
 def create_product(product: Product):
     with Session(engine) as session:
@@ -77,6 +83,7 @@ def create_product(product: Product):
         session.refresh(product)
         return product
 
+
 # Ora le API docs UI conoscono lo schema
 @app.get("/tags/", response_model=List[Tag])
 def read_tags():
@@ -84,17 +91,20 @@ def read_tags():
         tags = session.exec(select(Tag)).all()
         return tags
 
+
 @app.get("/product_types/", response_model=List[ProductType])
 def read_product_types():
     with Session(engine) as session:
         product_types = session.exec(select(ProductType)).all()
         return product_types
 
+
 @app.get("/products/", response_model=List[Product])
 def read_products():
     with Session(engine) as session:
         products = session.exec(select(Product)).all()
         return products
+
 
 if __name__ == '__main__':
     uvicorn.run(app, port=8000, host='127.0.0.1')
