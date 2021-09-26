@@ -88,7 +88,7 @@ class Product(SQLModel, table=True):
     name: str
     product_type: Optional[int] =\
         Field(default=None, foreign_key="producttype.id")
-    tags: List["Tag"] =\
+    tags: Optional[List["Tag"]] =\
         Relationship(back_populates="products", link_model=TagProductLink)
 
 
@@ -106,7 +106,7 @@ class ProductUpdate(SQLModel):
 
 class ProductReadWithTypeAndTags(ProductRead):
     product_type: Optional[ProductTypeRead] = None
-    tags: Optional[List[TagRead]] = None
+    tags: List[TagRead] = []
 
 
 sqlite_file_name = "database.db"
@@ -131,12 +131,13 @@ def on_startup():
     create_db_and_tables()
 
 
-@app.post("/tags/", response_model=Tag)
-def create_tags(*, session: Session = Depends(get_session), tag: Tag):
-    session.add(tag)
+@app.post("/tags/", response_model=TagRead)
+def create_tags(*, session: Session = Depends(get_session), tag: TagCreate):
+    db_t = Tag.from_orm(tag)
+    session.add(db_t)
     session.commit()
-    session.refresh(tag)
-    return tag
+    session.refresh(db_t)
+    return db_t
 
 
 @app.post("/product_types/", response_model=ProductTypeRead)
@@ -151,21 +152,22 @@ def create_product_type(*, session: Session = Depends(get_session),
 
 @app.post("/products/", response_model=ProductReadWithTypeAndTags)
 def create_product(*, session: Session = Depends(get_session),
-                   product: Product):
-    session.add(product)
+                   product: ProductCreate):
+    db_p = Product.from_orm(product)
+    session.add(db_p)
     session.commit()
-    session.refresh(product)
-    return product
+    session.refresh(db_p)
+    return db_p
 
 
 # Ora le API docs UI conoscono lo schema
-@app.get("/tags/", response_model=List[Tag])
+@app.get("/tags/", response_model=List[TagRead])
 def read_tags(*, session: Session = Depends(get_session)):
     tags = session.exec(select(Tag)).all()
     return tags
 
 
-@app.get("/product_types/", response_model=List[ProductType])
+@app.get("/product_types/", response_model=List[ProductTypeRead])
 # lte -> less than or equal
 def read_product_types(*, session: Session = Depends(get_session),
                        offset: int = 0,
