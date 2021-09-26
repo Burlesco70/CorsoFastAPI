@@ -1,7 +1,7 @@
 # Problema: API per relazioni 1:N: Product
 # Create tutte le viste
 # https://sqlmodel.tiangolo.com/tutorial/fastapi/teams/
-# TO DO
+# TO DO - INCOMPLETO
 # https://sqlmodel.tiangolo.com/tutorial/fastapi/teams/#add-teams-models
 from typing import Optional, List
 from fastapi import Depends, FastAPI, HTTPException, Query
@@ -20,11 +20,37 @@ class TagProductLink(SQLModel, table=True):
     )
 
 
-class Tag(SQLModel, table=True):
-    id: Optional[int] = Field(default=None, primary_key=True)
+"""
+Models di Tag
+"""
+
+
+class TagBase(SQLModel):
     name: str
+
+
+class Tag(TagBase, table=True):
+    id: Optional[int] = Field(default=None, primary_key=True)
     products: List["Product"] =\
         Relationship(back_populates="tags", link_model=TagProductLink)
+
+
+class TagCreate(TagBase):
+    pass
+
+
+class TagRead(TagBase):
+    id: int
+
+
+# Nel modello update tutti gli attributi devono essere opzionali
+class TagUpdate(SQLModel):
+    name: Optional[str] = None
+
+
+"""
+Models di ProductType
+"""
 
 
 class ProductTypeBase(SQLModel):
@@ -46,6 +72,11 @@ class ProductTypeRead(ProductTypeBase):
 # Nel modello update tutti gli attributi devono essere opzionali
 class ProductTypeUpdate(SQLModel):
     name: Optional[str] = None
+
+
+"""
+Models di Product
+"""
 
 
 class ProductBase(SQLModel):
@@ -71,6 +102,11 @@ class ProductRead(ProductBase):
 
 class ProductUpdate(SQLModel):
     name: Optional[str] = None
+
+
+class ProductReadWithTypeAndTags(ProductRead):
+    product_type: Optional[ProductTypeRead] = None
+    tags: Optional[List[TagRead]] = None
 
 
 sqlite_file_name = "database.db"
@@ -113,7 +149,7 @@ def create_product_type(*, session: Session = Depends(get_session),
     return db_pt
 
 
-@app.post("/products/", response_model=Product)
+@app.post("/products/", response_model=ProductReadWithTypeAndTags)
 def create_product(*, session: Session = Depends(get_session),
                    product: Product):
     session.add(product)

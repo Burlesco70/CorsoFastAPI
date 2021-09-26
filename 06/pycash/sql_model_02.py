@@ -129,14 +129,14 @@ def delete_tag():
 def main():
     create_db_and_tables()
     create_entities()
-    select_product_types()
-    select_product_type_panino()
-    select_first_row_tag()
-    select_all_tags()
-    select_four_tags()
-    select_next_four_tags()
-    update_tag()
-    delete_tag()
+    # select_product_types()
+    # select_product_type_panino()
+    # select_first_row_tag()
+    # select_all_tags()
+    # select_four_tags()
+    # select_next_four_tags()
+    # update_tag()
+    # delete_tag()
 
 
 if __name__ == "__main__":

@@ -1,4 +1,4 @@
-# Creazione entità "base", creazione, id automatici, lettura dati inseriti
+# Creazione entità "base", creazione, id automatici
 # https://sqlmodel.tiangolo.com/tutorial/insert/
 from typing import Optional
 from sqlmodel import Field, SQLModel, Session, create_engine
